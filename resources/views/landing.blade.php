@@ -153,7 +153,8 @@ TODO Backend:
                     <h3 class="text-xl font-bold text-slate-800 mb-3">Pemeriksaan Gigi</h3>
                     <p class="text-slate-600 mb-4">Pemeriksaan menyeluruh untuk mendeteksi masalah gigi dan gusi sejak dini.
                     </p>
-                    <a href="#" class="inline-flex items-center text-sky-600 font-semibold group-hover:text-sky-700">
+                    <a href="{{ url('/services/S001') }}"
+                        class="inline-flex items-center text-sky-600 font-semibold group-hover:text-sky-700">
                         Pelajari Lebih
                         <i data-lucide="arrow-right"
                             class="w-4 h-4 ml-2 group-hover:translate-x-1 transition-transform"></i>
@@ -169,7 +170,7 @@ TODO Backend:
                     </div>
                     <h3 class="text-xl font-bold text-slate-800 mb-3">Pembersihan Karang</h3>
                     <p class="text-slate-600 mb-4">Scaling dan pembersihan karang gigi untuk kesehatan mulut optimal.</p>
-                    <a href="#"
+                    <a href="{{ url('/services/S002') }}"
                         class="inline-flex items-center text-emerald-600 font-semibold group-hover:text-emerald-700">
                         Pelajari Lebih
                         <i data-lucide="arrow-right"
@@ -187,7 +188,8 @@ TODO Backend:
                     <h3 class="text-xl font-bold text-slate-800 mb-3">Bleaching Gigi</h3>
                     <p class="text-slate-600 mb-4">Pemutihan gigi profesional untuk senyum yang lebih cerah dan percaya
                         diri.</p>
-                    <a href="#" class="inline-flex items-center text-amber-600 font-semibold group-hover:text-amber-700">
+                    <a href="{{ url('/services/S005') }}"
+                        class="inline-flex items-center text-amber-600 font-semibold group-hover:text-amber-700">
                         Pelajari Lebih
                         <i data-lucide="arrow-right"
                             class="w-4 h-4 ml-2 group-hover:translate-x-1 transition-transform"></i>
@@ -204,7 +206,8 @@ TODO Backend:
                     <h3 class="text-xl font-bold text-slate-800 mb-3">Kawat Gigi / Braces</h3>
                     <p class="text-slate-600 mb-4">Pemasangan kawat gigi untuk merapikan susunan gigi dengan hasil maksimal.
                     </p>
-                    <a href="#" class="inline-flex items-center text-purple-600 font-semibold group-hover:text-purple-700">
+                    <a href="{{ url('/services/S007') }}"
+                        class="inline-flex items-center text-purple-600 font-semibold group-hover:text-purple-700">
                         Pelajari Lebih
                         <i data-lucide="arrow-right"
                             class="w-4 h-4 ml-2 group-hover:translate-x-1 transition-transform"></i>
@@ -220,7 +223,8 @@ TODO Backend:
                     </div>
                     <h3 class="text-xl font-bold text-slate-800 mb-3">Perawatan Saluran Akar</h3>
                     <p class="text-slate-600 mb-4">Perawatan saluran akar untuk menyelamatkan gigi yang terinfeksi.</p>
-                    <a href="#" class="inline-flex items-center text-rose-600 font-semibold group-hover:text-rose-700">
+                    <a href="{{ url('/services/S009') }}"
+                        class="inline-flex items-center text-rose-600 font-semibold group-hover:text-rose-700">
                         Pelajari Lebih
                         <i data-lucide="arrow-right"
                             class="w-4 h-4 ml-2 group-hover:translate-x-1 transition-transform"></i>
@@ -237,7 +241,8 @@ TODO Backend:
                     <h3 class="text-xl font-bold text-slate-800 mb-3">Implan Gigi</h3>
                     <p class="text-slate-600 mb-4">Pemasangan implan gigi berkualitas tinggi untuk mengganti gigi yang
                         hilang.</p>
-                    <a href="#" class="inline-flex items-center text-indigo-600 font-semibold group-hover:text-indigo-700">
+                    <a href="{{ url('/services/S010') }}"
+                        class="inline-flex items-center text-indigo-600 font-semibold group-hover:text-indigo-700">
                         Pelajari Lebih
                         <i data-lucide="arrow-right"
                             class="w-4 h-4 ml-2 group-hover:translate-x-1 transition-transform"></i>

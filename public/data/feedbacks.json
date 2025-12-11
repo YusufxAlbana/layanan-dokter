@@ -1,0 +1,14 @@
+{
+    "feedbacks": [
+        {
+            "id": "F1765426571950",
+            "name": "lucu",
+            "email": "maman@gmail.com",
+            "rating": 4,
+            "category": "pelayanan",
+            "message": "seru, niat banget gw ampe di bor badannya",
+            "allowPublish": true,
+            "createdAt": "2025-12-11T04:16:11.950Z"
+        }
+    ]
+}

@@ -145,7 +145,16 @@ Route::get('/feedback', function () {
 
 // Daftar Dokter
 Route::get('/doctors', function () {
-    return view('doctors.index');
+    // Fetch doctors data from JSON file
+    $file = public_path('data/doctors.json');
+    $doctors = [];
+
+    if (\Illuminate\Support\Facades\File::exists($file)) {
+        $data = json_decode(\Illuminate\Support\Facades\File::get($file), true);
+        $doctors = $data['doctors'] ?? [];
+    }
+
+    return view('doctors.index', ['doctors' => $doctors]);
 })->name('doctors.index');
 
 // Jadwal Dokter (dengan parameter ID)

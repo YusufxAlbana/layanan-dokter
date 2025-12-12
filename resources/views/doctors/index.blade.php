@@ -80,7 +80,7 @@
         {{-- Results Info --}}
         <div class="flex items-center justify-between mb-8">
             <p class="text-slate-600">
-                Menampilkan <span class="font-semibold text-slate-800">6</span> dokter
+                Menampilkan <span class="font-semibold text-slate-800">{{ count($doctors) }}</span> dokter
             </p>
             <div class="flex items-center space-x-2">
                 <span class="text-sm text-slate-500">Urutkan:</span>
@@ -94,65 +94,22 @@
         
         {{-- Grid --}}
         <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-8">
-            {{-- Doctor 1 --}}
-            @include('components.card-doctor', [
-                'name' => 'Dr. Andi Pratama, Sp.KG',
-                'specialty' => 'Dokter Gigi Konservasi',
-                'image' => 'https://images.unsplash.com/photo-1612349317150-e413f6a5b16d?w=400&h=400&fit=crop',
-                'experience' => '12',
-                'rating' => '4.9',
-                'id' => 1
-            ])
-            
-            {{-- Doctor 2 --}}
-            @include('components.card-doctor', [
-                'name' => 'Dr. Sarah Amanda, Sp.Ort',
-                'specialty' => 'Dokter Gigi Ortodonti',
-                'image' => 'https://images.unsplash.com/photo-1559839734-2b71ea197ec2?w=400&h=400&fit=crop',
-                'experience' => '8',
-                'rating' => '4.8',
-                'id' => 2
-            ])
-            
-            {{-- Doctor 3 --}}
-            @include('components.card-doctor', [
-                'name' => 'Dr. Rizki Hidayat, Sp.BM',
-                'specialty' => 'Dokter Bedah Mulut',
-                'image' => 'https://images.unsplash.com/photo-1622253692010-333f2da6031d?w=400&h=400&fit=crop',
-                'experience' => '15',
-                'rating' => '4.9',
-                'id' => 3
-            ])
-            
-            {{-- Doctor 4 --}}
-            @include('components.card-doctor', [
-                'name' => 'Dr. Maya Putri, Sp.KGA',
-                'specialty' => 'Dokter Gigi Anak',
-                'image' => 'https://images.unsplash.com/photo-1594824476967-48c8b964273f?w=400&h=400&fit=crop',
-                'experience' => '6',
-                'rating' => '4.7',
-                'id' => 4
-            ])
-            
-            {{-- Doctor 5 --}}
-            @include('components.card-doctor', [
-                'name' => 'Dr. Hendra Wijaya, Sp.Pros',
-                'specialty' => 'Dokter Gigi Prosthodonti',
-                'image' => 'https://images.unsplash.com/photo-1537368910025-700350fe46c7?w=400&h=400&fit=crop',
-                'experience' => '10',
-                'rating' => '4.8',
-                'id' => 5
-            ])
-            
-            {{-- Doctor 6 --}}
-            @include('components.card-doctor', [
-                'name' => 'Dr. Lisa Handayani',
-                'specialty' => 'Dokter Gigi Umum',
-                'image' => 'https://images.unsplash.com/photo-1551836022-d5d88e9218df?w=400&h=400&fit=crop',
-                'experience' => '5',
-                'rating' => '4.6',
-                'id' => 6
-            ])
+            @forelse($doctors as $doctor)
+                @include('components.card-doctor', [
+                    'name' => $doctor['name'] ?? 'Nama Dokter',
+                    'specialty' => $doctor['specialty'] ?? 'Spesialisasi',
+                    'image' => $doctor['photo'] ?? 'https://ui-avatars.com/api/?name=' . urlencode($doctor['name'] ?? 'Doctor') . '&background=0ea5e9&color=fff&size=400',
+                    'experience' => $doctor['experience'] ?? '0',
+                    'rating' => '4.8',
+                    'id' => $doctor['id'] ?? ''
+                ])
+            @empty
+                <div class="col-span-3 text-center py-12">
+                    <i data-lucide="user-x" class="w-16 h-16 text-slate-300 mx-auto mb-4"></i>
+                    <h3 class="text-xl font-semibold text-slate-600 mb-2">Belum Ada Dokter</h3>
+                    <p class="text-slate-500">Data dokter belum tersedia. Silakan tambahkan dokter melalui panel admin.</p>
+                </div>
+            @endforelse
         </div>
         
         {{-- Pagination --}}

@@ -55,24 +55,22 @@ TODO Backend:
                     x-text="isLoggedIn ? 'Data Anda sudah terisi otomatis' : 'Lengkapi data untuk membuat janji'"></p>
             </div>
 
-            {{-- Login Prompt for Guests --}}
-            <div x-show="!isLoggedIn && !isGuest"
-                class="bg-white rounded-2xl shadow-lg border border-slate-100 p-8 mb-6 text-center">
-                <div class="w-16 h-16 bg-sky-100 rounded-full flex items-center justify-center mx-auto mb-4">
-                    <i data-lucide="user-check" class="w-8 h-8 text-sky-600"></i>
-                </div>
-                <h2 class="text-xl font-bold text-slate-800 mb-2">Sudah Punya Akun?</h2>
-                <p class="text-slate-600 mb-6">Masuk untuk mengisi formulir lebih cepat dengan data yang tersimpan.</p>
-                <div class="flex flex-col sm:flex-row items-center justify-center gap-4">
-                    <a href="{{ url('/login') }}"
-                        class="w-full sm:w-auto px-8 py-3 bg-gradient-to-r from-sky-500 to-emerald-500 text-white font-semibold rounded-xl shadow-lg shadow-sky-500/30 hover:shadow-sky-500/50 transition">
-                        <i data-lucide="log-in" class="w-5 h-5 inline mr-2"></i>
-                        Masuk
-                    </a>
-                    <button @click="isGuest = true"
-                        class="w-full sm:w-auto px-8 py-3 bg-slate-100 hover:bg-slate-200 text-slate-700 font-medium rounded-xl transition">
-                        Lanjut Tanpa Akun
-                    </button>
+            {{-- Info Jadwal Terpilih (dari halaman schedule) --}}
+            <div x-show="prefilledDate && prefilledTime"
+                class="bg-gradient-to-r from-sky-50 to-emerald-50 rounded-2xl shadow-lg border border-slate-100 p-6 mb-6">
+                <div class="flex items-center justify-between">
+                    <div>
+                        <p class="text-sm text-slate-600">Jadwal yang dipilih:</p>
+                        <p class="text-lg font-bold text-slate-800">
+                            <span x-text="prefilledDoctor"></span>
+                        </p>
+                        <p class="text-sky-600 font-medium">
+                            <span x-text="formattedPrefilledDate"></span> - <span x-text="prefilledTime"></span> WIB
+                        </p>
+                    </div>
+                    <div class="w-12 h-12 bg-emerald-500 rounded-full flex items-center justify-center">
+                        <i data-lucide="calendar-check" class="w-6 h-6 text-white"></i>
+                    </div>
                 </div>
             </div>
 
@@ -162,56 +160,83 @@ TODO Backend:
                     </h2>
 
                     <div class="grid sm:grid-cols-2 gap-4">
+                        {{-- Dokter - Readonly jika sudah dipilih dari schedule --}}
+                        <div class="sm:col-span-2">
+                            <label class="block text-sm font-medium text-slate-700 mb-2">Dokter <span
+                                    class="text-red-500">*</span></label>
+                            <template x-if="hasPrefilledSchedule">
+                                <div
+                                    class="w-full px-4 py-3 bg-emerald-50 border border-emerald-200 rounded-xl text-emerald-700 font-medium flex items-center">
+                                    <i data-lucide="user-check" class="w-5 h-5 mr-2"></i>
+                                    <span x-text="prefilledDoctor"></span>
+                                    <input type="hidden" x-model="form.doctor">
+                                </div>
+                            </template>
+                            <template x-if="!hasPrefilledSchedule">
+                                <select x-model="form.doctor" required
+                                    class="w-full px-4 py-3 bg-slate-50 border border-slate-200 rounded-xl focus:ring-2 focus:ring-sky-500 focus:border-sky-500 transition">
+                                    <option value="">Pilih dokter</option>
+                                    <option value="dr-andi">Dr. Andi Pratama, Sp.KG</option>
+                                    <option value="dr-sarah">Dr. Sarah Amanda, Sp.Ort</option>
+                                    <option value="dr-rizki">Dr. Rizki Hidayat, Sp.BM</option>
+                                    <option value="dr-maya">Dr. Maya Putri, Sp.KGA</option>
+                                    <option value="dr-hendra">Dr. Hendra Wijaya, Sp.Pros</option>
+                                </select>
+                            </template>
+                        </div>
+
+                        {{-- Tanggal - Disabled jika sudah dipilih dari schedule --}}
+                        <div>
+                            <label class="block text-sm font-medium text-slate-700 mb-2">Tanggal <span
+                                    class="text-red-500">*</span></label>
+                            <input type="date" x-model="form.date" required :min="minDate" :disabled="hasPrefilledSchedule"
+                                :class="hasPrefilledSchedule ? 'bg-emerald-50 border-emerald-200 text-emerald-700' : 'bg-slate-50 border-slate-200'"
+                                class="w-full px-4 py-3 rounded-xl focus:ring-2 focus:ring-sky-500 focus:border-sky-500 transition">
+                        </div>
+
+                        {{-- Waktu - Disabled jika sudah dipilih dari schedule --}}
+                        <div>
+                            <label class="block text-sm font-medium text-slate-700 mb-2">Waktu <span
+                                    class="text-red-500">*</span></label>
+                            <template x-if="hasPrefilledSchedule">
+                                <div
+                                    class="w-full px-4 py-3 bg-emerald-50 border border-emerald-200 rounded-xl text-emerald-700 font-medium flex items-center">
+                                    <i data-lucide="clock" class="w-5 h-5 mr-2"></i>
+                                    <span x-text="prefilledTime + ' WIB'"></span>
+                                    <input type="hidden" x-model="form.time">
+                                </div>
+                            </template>
+                            <template x-if="!hasPrefilledSchedule">
+                                <select x-model="form.time" required
+                                    class="w-full px-4 py-3 bg-slate-50 border border-slate-200 rounded-xl focus:ring-2 focus:ring-sky-500 focus:border-sky-500 transition">
+                                    <option value="">Pilih waktu</option>
+                                    <option value="09:00">09:00 WIB</option>
+                                    <option value="10:00">10:00 WIB</option>
+                                    <option value="11:00">11:00 WIB</option>
+                                    <option value="13:00">13:00 WIB</option>
+                                    <option value="14:00">14:00 WIB</option>
+                                    <option value="15:00">15:00 WIB</option>
+                                    <option value="16:00">16:00 WIB</option>
+                                </select>
+                            </template>
+                        </div>
+
+                        {{-- Layanan - Filter berdasarkan specialty dokter --}}
                         <div class="sm:col-span-2">
                             <label class="block text-sm font-medium text-slate-700 mb-2">Pilih Layanan <span
                                     class="text-red-500">*</span></label>
                             <select x-model="form.service" required
                                 class="w-full px-4 py-3 bg-slate-50 border border-slate-200 rounded-xl focus:ring-2 focus:ring-sky-500 focus:border-sky-500 transition">
                                 <option value="">Pilih layanan</option>
-                                <option value="checkup">Pemeriksaan Gigi - Rp 150.000</option>
-                                <option value="scaling">Pembersihan Karang Gigi - Rp 300.000</option>
-                                <option value="filling">Tambal Gigi - Rp 250.000</option>
-                                <option value="extraction">Cabut Gigi - Rp 200.000</option>
-                                <option value="bleaching">Bleaching - Rp 1.500.000</option>
-                                <option value="braces">Konsultasi Kawat Gigi - Rp 200.000</option>
+                                <template x-for="service in availableServices" :key="service.id">
+                                    <option :value="service.id"
+                                        x-text="service.name + ' - Rp ' + service.price.toLocaleString('id-ID')"></option>
+                                </template>
                             </select>
-                        </div>
-
-                        <div class="sm:col-span-2">
-                            <label class="block text-sm font-medium text-slate-700 mb-2">Pilih Dokter <span
-                                    class="text-red-500">*</span></label>
-                            <select x-model="form.doctor" required
-                                class="w-full px-4 py-3 bg-slate-50 border border-slate-200 rounded-xl focus:ring-2 focus:ring-sky-500 focus:border-sky-500 transition">
-                                <option value="">Pilih dokter</option>
-                                <option value="dr-andi">Dr. Andi Pratama, Sp.KG</option>
-                                <option value="dr-sarah">Dr. Sarah Amanda, Sp.Ort</option>
-                                <option value="dr-rizki">Dr. Rizki Hidayat, Sp.BM</option>
-                                <option value="dr-maya">Dr. Maya Putri, Sp.KGA</option>
-                                <option value="dr-hendra">Dr. Hendra Wijaya, Sp.Pros</option>
-                            </select>
-                        </div>
-
-                        <div>
-                            <label class="block text-sm font-medium text-slate-700 mb-2">Tanggal <span
-                                    class="text-red-500">*</span></label>
-                            <input type="date" x-model="form.date" required :min="minDate"
-                                class="w-full px-4 py-3 bg-slate-50 border border-slate-200 rounded-xl focus:ring-2 focus:ring-sky-500 focus:border-sky-500 transition">
-                        </div>
-
-                        <div>
-                            <label class="block text-sm font-medium text-slate-700 mb-2">Waktu <span
-                                    class="text-red-500">*</span></label>
-                            <select x-model="form.time" required
-                                class="w-full px-4 py-3 bg-slate-50 border border-slate-200 rounded-xl focus:ring-2 focus:ring-sky-500 focus:border-sky-500 transition">
-                                <option value="">Pilih waktu</option>
-                                <option value="09:00">09:00 WIB</option>
-                                <option value="10:00">10:00 WIB</option>
-                                <option value="11:00">11:00 WIB</option>
-                                <option value="13:00">13:00 WIB</option>
-                                <option value="14:00">14:00 WIB</option>
-                                <option value="15:00">15:00 WIB</option>
-                                <option value="16:00">16:00 WIB</option>
-                            </select>
+                            <p x-show="hasPrefilledSchedule" class="text-xs text-slate-500 mt-1">
+                                <i data-lucide="info" class="w-3 h-3 inline mr-1"></i>
+                                Layanan sesuai dengan keahlian <span x-text="prefilledSpecialty" class="font-medium"></span>
+                            </p>
                         </div>
 
                         <div class="sm:col-span-2">
@@ -276,82 +301,183 @@ TODO Backend:
                     complaint: ''
                 },
 
-                init() {
-                    // Check if user is logged in
-                    const user = localStorage.getItem('klinik_current_user');
-                    if (user) {
-                        this.currentUser = JSON.parse(user);
-                        this.isLoggedIn = true;
-                        // Pre-fill form
-                        this.form.name = this.currentUser.name;
-                        this.form.email = this.currentUser.email;
-                        this.form.phone = this.currentUser.phone || '';
-                    }
+                prefilledDoctor: '',
+                prefilledDoctorId: '',
+                prefilledSpecialty: '',
+                    prefilledDate: '',
+                    prefilledTime: '',
 
-                    // Check if coming as guest
-                    const urlParams = new URLSearchParams(window.location.search);
-                    if (urlParams.get('guest') === 'true') {
-                        this.isGuest = true;
-                    }
-                },
+                    // Mapping specialty ke services
+                    specialtyServices: {
+                        'Dokter Gigi Umum': [
+                            { id: 'checkup', name: 'Pemeriksaan Gigi', price: 150000 },
+                            { id: 'scaling', name: 'Pembersihan Karang Gigi', price: 300000 },
+                            { id: 'filling', name: 'Tambal Gigi', price: 250000 },
+                            { id: 'extraction', name: 'Cabut Gigi', price: 200000 }
+                        ],
+                        'Konservasi Gigi': [
+                            { id: 'filling', name: 'Tambal Gigi', price: 250000 },
+                            { id: 'root-canal', name: 'Perawatan Saluran Akar', price: 800000 },
+                            { id: 'veneer', name: 'Veneer', price: 3000000 },
+                            { id: 'crown', name: 'Crown', price: 2500000 }
+                        ],
+                        'Ortodonti': [
+                            { id: 'braces-consult', name: 'Konsultasi Kawat Gigi', price: 200000 },
+                            { id: 'braces', name: 'Pemasangan Kawat Gigi', price: 15000000 },
+                            { id: 'invisalign', name: 'Invisalign', price: 40000000 },
+                            { id: 'retainer', name: 'Retainer', price: 1500000 }
+                        ],
+                        'Bedah Mulut': [
+                            { id: 'wisdom-tooth', name: 'Cabut Gigi Bungsu', price: 1500000 },
+                            { id: 'implant', name: 'Implant Gigi', price: 15000000 },
+                            { id: 'oral-surgery', name: 'Operasi Mulut', price: 5000000 },
+                            { id: 'biopsy', name: 'Biopsi', price: 2000000 }
+                        ],
+                        'Kedokteran Gigi Anak': [
+                            { id: 'child-checkup', name: 'Pemeriksaan Anak', price: 150000 },
+                            { id: 'fluoride', name: 'Fluoride Treatment', price: 200000 },
+                            { id: 'fissure-sealant', name: 'Fissure Sealant', price: 300000 },
+                            { id: 'baby-teeth', name: 'Perawatan Gigi Susu', price: 200000 }
+                        ],
+                        'Prostodonti': [
+                            { id: 'denture', name: 'Gigi Tiruan', price: 3000000 },
+                            { id: 'crown', name: 'Crown', price: 2500000 },
+                            { id: 'bridge', name: 'Bridge', price: 4000000 },
+                            { id: 'implant', name: 'Implant Gigi', price: 15000000 }
+                        ],
+                        'Periodonti': [
+                            { id: 'scaling', name: 'Pembersihan Karang Gigi', price: 300000 },
+                            { id: 'gum-treatment', name: 'Perawatan Gusi', price: 500000 },
+                            { id: 'periodontal-surgery', name: 'Bedah Periodontal', price: 3000000 },
+                            { id: 'deep-scaling', name: 'Scaling & Root Planing', price: 600000 }
+                        ],
+                        'Endodonti': [
+                            { id: 'root-canal', name: 'Perawatan Saluran Akar', price: 800000 },
+                            { id: 'retreatment', name: 'Retreatment', price: 1000000 },
+                            { id: 'apicoectomy', name: 'Apikoektomi', price: 2500000 },
+                            { id: 'internal-bleaching', name: 'Bleaching Internal', price: 1000000 }
+                        ]
+                    },
 
-                logout() {
-                    localStorage.removeItem('klinik_current_user');
-                    this.isLoggedIn = false;
-                    this.currentUser = null;
-                    this.isGuest = false;
-                    // Reset form
-                    this.form = {
-                        name: '', email: '', phone: '', birthDate: '', gender: '', address: '',
-                        service: '', doctor: '', date: '', time: '', complaint: ''
-                    };
-                },
+                    get hasPrefilledSchedule() {
+                        return this.prefilledDoctorId && this.prefilledDate && this.prefilledTime;
+                    },
 
-                submitBooking() {
-                    this.loading = true;
+                    get availableServices() {
+                        if (this.prefilledSpecialty && this.specialtyServices[this.prefilledSpecialty]) {
+                            return this.specialtyServices[this.prefilledSpecialty];
+                        }
+                        // Default: tampilkan layanan umum
+                        return this.specialtyServices['Dokter Gigi Umum'];
+                    },
 
-                    setTimeout(() => {
-                        // Create appointment
-                        const appointments = JSON.parse(localStorage.getItem('klinik_appointments') || '[]');
-                        const newAppointment = {
-                            id: 'KGS-' + String(appointments.length + 1).padStart(3, '0'),
-                            ...this.form,
-                            status: 'pending',
-                            createdAt: new Date().toISOString(),
-                            userId: this.currentUser?.id || null
-                        };
-                        appointments.push(newAppointment);
-                        localStorage.setItem('klinik_appointments', JSON.stringify(appointments));
+                    get formattedPrefilledDate() {
+                        if (!this.prefilledDate) return '';
+                        const date = new Date(this.prefilledDate);
+                        const options = { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric' };
+                        return date.toLocaleDateString('id-ID', options);
+                    },
 
-                        // If guest, add to patients
-                        if (this.isGuest && !this.isLoggedIn) {
-                            const patients = JSON.parse(localStorage.getItem('klinik_patients') || '[]');
-                            // Check if patient already exists by email
-                            if (!patients.find(p => p.email === this.form.email)) {
-                                patients.push({
-                                    id: 'P' + String(patients.length + 1).padStart(3, '0'),
-                                    name: this.form.name,
-                                    email: this.form.email,
-                                    phone: this.form.phone,
-                                    birthDate: this.form.birthDate,
-                                    gender: this.form.gender,
-                                    address: this.form.address,
-                                    visits: [],
-                                    createdAt: new Date().toLocaleDateString('id-ID'),
-                                    color: ['0ea5e9', '10b981', '8b5cf6', 'f59e0b'][Math.floor(Math.random() * 4)]
-                                });
-                                localStorage.setItem('klinik_patients', JSON.stringify(patients));
-                            }
+                    init() {
+                        // Check if user is logged in
+                        const user = localStorage.getItem('klinik_current_user');
+                        if (user) {
+                            this.currentUser = JSON.parse(user);
+                            this.isLoggedIn = true;
+                            // Pre-fill form
+                            this.form.name = this.currentUser.name;
+                            this.form.email = this.currentUser.email;
+                            this.form.phone = this.currentUser.phone || '';
                         }
 
-                        // Save current booking for checkout
-                        localStorage.setItem('klinik_current_booking', JSON.stringify(newAppointment));
+                        // Skip guest selection - langsung masuk mode guest
+                        this.isGuest = true;
 
-                        // Redirect to checkout
-                        window.location.href = '{{ url("/appointment/checkout") }}';
-                    }, 1000);
+                        // Pre-fill dari URL params (dari halaman schedule)
+                        const urlParams = new URLSearchParams(window.location.search);
+                        const doctorId = urlParams.get('doctor');
+                        const doctorName = urlParams.get('doctor_name');
+                        const specialty = urlParams.get('specialty');
+                        const date = urlParams.get('date');
+                        const time = urlParams.get('time');
+
+                        if (doctorId) {
+                            this.prefilledDoctorId = doctorId;
+                            this.form.doctor = doctorId;
+                        }
+                        if (doctorName) {
+                            this.prefilledDoctor = decodeURIComponent(doctorName);
+                        }
+                        if (specialty) {
+                            this.prefilledSpecialty = decodeURIComponent(specialty);
+                        }
+                        if (date) {
+                            this.prefilledDate = date;
+                            this.form.date = date;
+                        }
+                        if (time) {
+                            this.prefilledTime = time;
+                            this.form.time = time;
+                        }
+                    },
+
+                    logout() {
+                        localStorage.removeItem('klinik_current_user');
+                        this.isLoggedIn = false;
+                        this.currentUser = null;
+                        this.isGuest = false;
+                        // Reset form
+                        this.form = {
+                            name: '', email: '', phone: '', birthDate: '', gender: '', address: '',
+                            service: '', doctor: '', date: '', time: '', complaint: ''
+                        };
+                    },
+
+                    submitBooking() {
+                        this.loading = true;
+
+                        setTimeout(() => {
+                            // Create appointment
+                            const appointments = JSON.parse(localStorage.getItem('klinik_appointments') || '[]');
+                            const newAppointment = {
+                                id: 'KGS-' + String(appointments.length + 1).padStart(3, '0'),
+                                ...this.form,
+                                status: 'pending',
+                                createdAt: new Date().toISOString(),
+                                userId: this.currentUser?.id || null
+                            };
+                            appointments.push(newAppointment);
+                            localStorage.setItem('klinik_appointments', JSON.stringify(appointments));
+
+                            // If guest, add to patients
+                            if (this.isGuest && !this.isLoggedIn) {
+                                const patients = JSON.parse(localStorage.getItem('klinik_patients') || '[]');
+                                // Check if patient already exists by email
+                                if (!patients.find(p => p.email === this.form.email)) {
+                                    patients.push({
+                                        id: 'P' + String(patients.length + 1).padStart(3, '0'),
+                                        name: this.form.name,
+                                        email: this.form.email,
+                                        phone: this.form.phone,
+                                        birthDate: this.form.birthDate,
+                                        gender: this.form.gender,
+                                        address: this.form.address,
+                                        visits: [],
+                                        createdAt: new Date().toLocaleDateString('id-ID'),
+                                        color: ['0ea5e9', '10b981', '8b5cf6', 'f59e0b'][Math.floor(Math.random() * 4)]
+                                    });
+                                    localStorage.setItem('klinik_patients', JSON.stringify(patients));
+                                }
+                            }
+
+                            // Save current booking for checkout
+                            localStorage.setItem('klinik_current_booking', JSON.stringify(newAppointment));
+
+                            // Redirect to checkout
+                            window.location.href = '{{ url("/appointment/checkout") }}';
+                        }, 1000);
+                    }
                 }
             }
-        }
-    </script>
+        </script>
 @endpush

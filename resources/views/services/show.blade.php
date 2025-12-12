@@ -30,16 +30,32 @@ Halaman detail untuk setiap layanan.
             <div class="grid lg:grid-cols-2 gap-12 items-center">
                 {{-- Left Content --}}
                 <div>
-                    <span
-                        class="inline-flex items-center px-4 py-2 bg-sky-100 text-sky-700 rounded-full text-sm font-medium mb-6">
-                        <i data-lucide="heart" class="w-4 h-4 mr-2"></i>
-                        Layanan Kami
-                    </span>
+                    <div class="flex flex-wrap items-center gap-3 mb-6">
+                        <span
+                            class="inline-flex items-center px-4 py-2 bg-sky-100 text-sky-700 rounded-full text-sm font-medium">
+                            <i data-lucide="heart" class="w-4 h-4 mr-2"></i>
+                            Layanan Kami
+                        </span>
+                        @if(isset($service['category']))
+                            <span
+                                class="inline-flex items-center px-4 py-2 bg-emerald-100 text-emerald-700 rounded-full text-sm font-medium">
+                                <i data-lucide="tag" class="w-4 h-4 mr-2"></i>
+                                {{ $service['category'] }}
+                            </span>
+                        @endif
+                        @if(isset($service['popular']) && $service['popular'])
+                            <span
+                                class="inline-flex items-center px-4 py-2 bg-amber-100 text-amber-700 rounded-full text-sm font-medium">
+                                <i data-lucide="star" class="w-4 h-4 mr-2"></i>
+                                Populer
+                            </span>
+                        @endif
+                    </div>
                     <h1 class="text-4xl sm:text-5xl font-extrabold text-slate-800 mb-6">
                         {{ $service['name'] }}
                     </h1>
                     <p class="text-lg text-slate-600 mb-8">
-                        {{ $service['description'] }}
+                        {{ $service['full_description'] ?? $service['description'] }}
                     </p>
 
                     {{-- Quick Info --}}
@@ -70,12 +86,12 @@ Halaman detail untuk setiap layanan.
                     </div>
                 </div>
 
-                {{-- Right Content - Icon --}}
+                {{-- Right Content - Image --}}
                 <div class="flex justify-center">
                     <div class="relative">
-                        <div
-                            class="w-80 h-80 bg-gradient-to-br {{ $gradientClass }} rounded-3xl flex items-center justify-center shadow-2xl">
-                            <i data-lucide="{{ $icon }}" class="w-32 h-32 text-white"></i>
+                        <div class="w-80 h-80 rounded-3xl overflow-hidden shadow-2xl">
+                            <img src="{{ $service['image'] ?? '/images/services/default.png' }}"
+                                alt="{{ $service['name'] }}" class="w-full h-full object-cover">
                         </div>
                         {{-- Floating Badge --}}
                         <div class="absolute -bottom-4 -right-4 bg-white px-6 py-3 rounded-2xl shadow-xl">
@@ -149,74 +165,122 @@ Halaman detail untuk setiap layanan.
                                 </div>
                             @endforeach
                         </div>
-                    </div>
-                </div>
 
-                {{-- Sidebar --}}
-                <div class="space-y-6">
-                    {{-- Price Card --}}
-                    <div class="bg-gradient-to-br from-sky-500 to-emerald-500 rounded-3xl p-8 text-white">
-                        <h3 class="text-lg font-semibold mb-2 opacity-90">Mulai dari</h3>
-                        <p class="text-4xl font-bold mb-4">Rp {{ number_format($service['price'], 0, ',', '.') }}</p>
-                        <p class="text-white/80 text-sm mb-6">
-                            *Harga dapat bervariasi tergantung kondisi dan kebutuhan pasien
-                        </p>
-                        <a href="{{ url('/patients/register') }}"
-                            class="w-full inline-flex items-center justify-center px-6 py-4 bg-white text-sky-600 font-bold rounded-xl shadow-lg hover:shadow-xl hover:scale-105 transition-all">
-                            <i data-lucide="calendar-plus" class="w-5 h-5 mr-2"></i>
-                            Buat Janji
-                        </a>
-                    </div>
-
-                    {{-- Info Card --}}
-                    <div class="bg-gradient-to-br from-slate-50 to-white rounded-3xl p-6 border border-slate-100">
-                        <h3 class="text-lg font-bold text-slate-800 mb-4">Informasi Tambahan</h3>
-                        <div class="space-y-4">
-                            <div class="flex items-center">
-                                <div class="w-10 h-10 bg-sky-100 rounded-xl flex items-center justify-center mr-4">
-                                    <i data-lucide="clock" class="w-5 h-5 text-sky-600"></i>
-                                </div>
-                                <div>
-                                    <p class="text-sm text-slate-500">Durasi</p>
-                                    <p class="font-semibold text-slate-800">{{ $service['duration'] }} menit</p>
-                                </div>
-                            </div>
-                            <div class="flex items-center">
-                                <div class="w-10 h-10 bg-emerald-100 rounded-xl flex items-center justify-center mr-4">
-                                    <i data-lucide="shield-check" class="w-5 h-5 text-emerald-600"></i>
-                                </div>
-                                <div>
-                                    <p class="text-sm text-slate-500">Garansi</p>
-                                    <p class="font-semibold text-slate-800">Sesuai ketentuan</p>
-                                </div>
-                            </div>
-                            <div class="flex items-center">
-                                <div class="w-10 h-10 bg-amber-100 rounded-xl flex items-center justify-center mr-4">
-                                    <i data-lucide="user-check" class="w-5 h-5 text-amber-600"></i>
-                                </div>
-                                <div>
-                                    <p class="text-sm text-slate-500">Ditangani oleh</p>
-                                    <p class="font-semibold text-slate-800">Dokter Spesialis</p>
-                                </div>
+                        {{-- FAQ Section --}}
+                        <div class="bg-gradient-to-br from-slate-50 to-white rounded-3xl p-8 border border-slate-100"
+                            x-data="{ openFaq: null }">
+                            <h2 class="text-2xl font-bold text-slate-800 mb-6 flex items-center">
+                                <i data-lucide="help-circle" class="w-6 h-6 mr-3 text-purple-500"></i>
+                                Pertanyaan Umum
+                            </h2>
+                            <div class="space-y-4">
+                                @php
+                                    $faqs = [
+                                        [
+                                            'question' => 'Berapa lama prosedur ' . strtolower($service['name']) . ' berlangsung?',
+                                            'answer' => 'Prosedur ' . strtolower($service['name']) . ' biasanya membutuhkan waktu sekitar ' . $service['duration'] . ' menit. Durasi dapat bervariasi tergantung kondisi pasien.'
+                                        ],
+                                        [
+                                            'question' => 'Apakah prosedur ini menyakitkan?',
+                                            'answer' => 'Kami menggunakan anestesi lokal dan teknologi modern untuk memastikan kenyamanan Anda selama prosedur. Rasa tidak nyaman minimal dan kami akan memastikan Anda merasa nyaman.'
+                                        ],
+                                        [
+                                            'question' => 'Berapa biaya untuk prosedur ini?',
+                                            'answer' => 'Biaya ' . strtolower($service['name']) . ' mulai dari Rp ' . number_format($service['price'], 0, ',', '.') . '. Harga final dapat bervariasi tergantung kompleksitas kasus dan kebutuhan spesifik pasien.'
+                                        ],
+                                        [
+                                            'question' => 'Apakah ada persiapan khusus sebelum prosedur?',
+                                            'answer' => 'Untuk sebagian besar prosedur, tidak diperlukan persiapan khusus. Namun, kami sarankan untuk makan terlebih dahulu dan menginformasikan kondisi kesehatan atau obat yang sedang dikonsumsi.'
+                                        ]
+                                    ];
+                                @endphp
+                                @foreach($faqs as $index => $faq)
+                                    <div class="border border-slate-200 rounded-xl overflow-hidden">
+                                        <button @click="openFaq = openFaq === {{ $index }} ? null : {{ $index }}"
+                                            class="w-full px-6 py-4 text-left flex items-center justify-between bg-white hover:bg-slate-50 transition-colors">
+                                            <span class="font-medium text-slate-800">{{ $faq['question'] }}</span>
+                                            <i data-lucide="chevron-down"
+                                                class="w-5 h-5 text-slate-400 transition-transform duration-300"
+                                                :class="{ 'rotate-180': openFaq === {{ $index }} }"></i>
+                                        </button>
+                                        <div x-show="openFaq === {{ $index }}"
+                                            x-transition:enter="transition ease-out duration-200"
+                                            x-transition:enter-start="opacity-0 -translate-y-2"
+                                            x-transition:enter-end="opacity-100 translate-y-0"
+                                            class="px-6 py-4 bg-slate-50 border-t border-slate-200">
+                                            <p class="text-slate-600">{{ $faq['answer'] }}</p>
+                                        </div>
+                                    </div>
+                                @endforeach
                             </div>
                         </div>
                     </div>
 
-                    {{-- Contact Card --}}
-                    <div class="bg-gradient-to-br from-slate-50 to-white rounded-3xl p-6 border border-slate-100">
-                        <h3 class="text-lg font-bold text-slate-800 mb-4">Ada Pertanyaan?</h3>
-                        <p class="text-slate-600 text-sm mb-4">
-                            Hubungi kami untuk informasi lebih lanjut tentang layanan ini.
-                        </p>
-                        <a href="tel:+6212345678"
-                            class="w-full inline-flex items-center justify-center px-6 py-3 bg-slate-100 text-slate-700 font-semibold rounded-xl hover:bg-slate-200 transition-all">
-                            <i data-lucide="phone" class="w-5 h-5 mr-2"></i>
-                            (021) 1234-5678
-                        </a>
+                    {{-- Sidebar --}}
+                    <div class="space-y-6">
+                        {{-- Price Card --}}
+                        <div class="bg-gradient-to-br from-sky-500 to-emerald-500 rounded-3xl p-8 text-white">
+                            <h3 class="text-lg font-semibold mb-2 opacity-90">Mulai dari</h3>
+                            <p class="text-4xl font-bold mb-4">Rp {{ number_format($service['price'], 0, ',', '.') }}</p>
+                            <p class="text-white/80 text-sm mb-6">
+                                *Harga dapat bervariasi tergantung kondisi dan kebutuhan pasien
+                            </p>
+                            <a href="{{ url('/patients/register') }}"
+                                class="w-full inline-flex items-center justify-center px-6 py-4 bg-white text-sky-600 font-bold rounded-xl shadow-lg hover:shadow-xl hover:scale-105 transition-all">
+                                <i data-lucide="calendar-plus" class="w-5 h-5 mr-2"></i>
+                                Buat Janji
+                            </a>
+                        </div>
+
+                        {{-- Info Card --}}
+                        <div class="bg-gradient-to-br from-slate-50 to-white rounded-3xl p-6 border border-slate-100">
+                            <h3 class="text-lg font-bold text-slate-800 mb-4">Informasi Tambahan</h3>
+                            <div class="space-y-4">
+                                <div class="flex items-center">
+                                    <div class="w-10 h-10 bg-sky-100 rounded-xl flex items-center justify-center mr-4">
+                                        <i data-lucide="clock" class="w-5 h-5 text-sky-600"></i>
+                                    </div>
+                                    <div>
+                                        <p class="text-sm text-slate-500">Durasi</p>
+                                        <p class="font-semibold text-slate-800">{{ $service['duration'] }} menit</p>
+                                    </div>
+                                </div>
+                                <div class="flex items-center">
+                                    <div class="w-10 h-10 bg-emerald-100 rounded-xl flex items-center justify-center mr-4">
+                                        <i data-lucide="shield-check" class="w-5 h-5 text-emerald-600"></i>
+                                    </div>
+                                    <div>
+                                        <p class="text-sm text-slate-500">Garansi</p>
+                                        <p class="font-semibold text-slate-800">Sesuai ketentuan</p>
+                                    </div>
+                                </div>
+                                <div class="flex items-center">
+                                    <div class="w-10 h-10 bg-amber-100 rounded-xl flex items-center justify-center mr-4">
+                                        <i data-lucide="user-check" class="w-5 h-5 text-amber-600"></i>
+                                    </div>
+                                    <div>
+                                        <p class="text-sm text-slate-500">Ditangani oleh</p>
+                                        <p class="font-semibold text-slate-800">Dokter Spesialis</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        {{-- Contact Card --}}
+                        <div class="bg-gradient-to-br from-slate-50 to-white rounded-3xl p-6 border border-slate-100">
+                            <h3 class="text-lg font-bold text-slate-800 mb-4">Ada Pertanyaan?</h3>
+                            <p class="text-slate-600 text-sm mb-4">
+                                Hubungi kami untuk informasi lebih lanjut tentang layanan ini.
+                            </p>
+                            <a href="tel:+6212345678"
+                                class="w-full inline-flex items-center justify-center px-6 py-3 bg-slate-100 text-slate-700 font-semibold rounded-xl hover:bg-slate-200 transition-all">
+                                <i data-lucide="phone" class="w-5 h-5 mr-2"></i>
+                                (021) 1234-5678
+                            </a>
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
     </section>
 
     {{-- Related Services --}}
@@ -227,14 +291,16 @@ Halaman detail untuk setiap layanan.
                 <template x-for="service in services.filter(s => s.id !== '{{ $service['id'] }}').slice(0, 3)"
                     :key="service.id">
                     <a :href="'/services/' + service.id"
-                        class="group bg-white rounded-2xl p-6 shadow-sm hover:shadow-xl transition-all duration-300 border border-slate-100">
-                        <div
-                            class="w-12 h-12 bg-gradient-to-br from-sky-500 to-emerald-500 rounded-xl flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
-                            <i :data-lucide="getIcon(service.name)" class="w-6 h-6 text-white"></i>
+                        class="group bg-white rounded-2xl overflow-hidden shadow-sm hover:shadow-xl transition-all duration-300 border border-slate-100">
+                        <div class="h-32 overflow-hidden">
+                            <img :src="service.image" :alt="service.name"
+                                class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300">
                         </div>
-                        <h3 class="font-bold text-slate-800 mb-2" x-text="service.name"></h3>
-                        <p class="text-sm text-slate-600 line-clamp-2" x-text="service.description"></p>
-                        <p class="text-sky-600 font-semibold mt-3" x-text="formatPrice(service.price)"></p>
+                        <div class="p-6">
+                            <h3 class="font-bold text-slate-800 mb-2" x-text="service.name"></h3>
+                            <p class="text-sm text-slate-600 line-clamp-2" x-text="service.description"></p>
+                            <p class="text-sky-600 font-semibold mt-3" x-text="formatPrice(service.price)"></p>
+                        </div>
                     </a>
                 </template>
             </div>

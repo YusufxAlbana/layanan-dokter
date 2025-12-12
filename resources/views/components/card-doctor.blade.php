@@ -31,7 +31,6 @@
     'specialty' => 'Spesialisasi',
     'image' => 'https://ui-avatars.com/api/?name=Doctor&background=0ea5e9&color=fff&size=200',
     'experience' => '5',
-    'rating' => '4.8',
     'id' => 1
 ])
 
@@ -45,12 +44,6 @@
         >
         {{-- Gradient Overlay --}}
         <div class="absolute inset-0 bg-gradient-to-t from-slate-900/80 via-transparent to-transparent"></div>
-        
-        {{-- Rating Badge --}}
-        <div class="absolute top-4 right-4 px-3 py-1.5 bg-white/90 backdrop-blur-sm rounded-xl flex items-center space-x-1 shadow-lg">
-            <i data-lucide="star" class="w-4 h-4 text-amber-500 fill-amber-500"></i>
-            <span class="text-sm font-semibold text-slate-800">{{ $rating }}</span>
-        </div>
         
         {{-- Experience Badge --}}
         <div class="absolute bottom-4 left-4">

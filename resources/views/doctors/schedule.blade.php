@@ -75,7 +75,8 @@ Features:
                                 </div>
                                 <div class="text-center p-3 bg-emerald-50 rounded-xl">
                                     <p class="text-2xl font-bold text-emerald-600">
-                                        {{ number_format($doctor['totalPatients'] ?? 0) }}+</p>
+                                        {{ number_format($doctor['totalPatients'] ?? 0) }}+
+                                    </p>
                                     <p class="text-xs text-slate-500">Pasien</p>
                                 </div>
                             </div>
@@ -186,7 +187,8 @@ Features:
                                     <div
                                         class="p-4 rounded-xl {{ $isAvailable ? 'bg-emerald-50 border-2 border-emerald-200' : 'bg-slate-50 border-2 border-slate-200' }}">
                                         <p class="font-medium {{ $isAvailable ? 'text-emerald-700' : 'text-slate-500' }} mb-1">
-                                            {{ $dayLabel }}</p>
+                                            {{ $dayLabel }}
+                                        </p>
                                         <p class="text-sm {{ $isAvailable ? 'text-emerald-600' : 'text-slate-400' }}">
                                             @if($isAvailable)
                                                 <i data-lucide="clock" class="w-3 h-3 inline mr-1"></i>
@@ -225,10 +227,10 @@ Features:
                                     <div class="text-center">
                                         <p class="text-xs text-slate-500 mb-1" x-text="day.label"></p>
                                         <button @click="selectDate(day)" :class="{
-                                                    'bg-sky-500 text-white': day.dateStr === selectedDate,
-                                                    'bg-slate-100 text-slate-400 cursor-not-allowed': !day.isAvailable,
-                                                    'bg-emerald-50 border-2 border-emerald-500 text-emerald-700 hover:bg-emerald-100': day.isAvailable && day.dateStr !== selectedDate
-                                                }" :disabled="!day.isAvailable"
+                                                            'bg-sky-500 text-white': day.dateStr === selectedDate,
+                                                            'bg-slate-100 text-slate-400 cursor-not-allowed': !day.isAvailable,
+                                                            'bg-emerald-50 border-2 border-emerald-500 text-emerald-700 hover:bg-emerald-100': day.isAvailable && day.dateStr !== selectedDate
+                                                        }" :disabled="!day.isAvailable"
                                             class="w-full py-3 rounded-xl font-semibold transition" x-text="day.date">
                                         </button>
                                     </div>
@@ -245,10 +247,10 @@ Features:
                             <div class="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-6 gap-2">
                                 <template x-for="slot in timeSlots" :key="slot.time">
                                     <button @click="selectTime(slot.time)" :class="{
-                                                'bg-sky-500 text-white': selectedTime === slot.time,
-                                                'bg-slate-100 text-slate-400 cursor-not-allowed line-through': !slot.available,
-                                                'bg-emerald-50 border-2 border-emerald-500 text-emerald-700 hover:bg-emerald-100': slot.available && selectedTime !== slot.time
-                                            }" :disabled="!slot.available"
+                                                        'bg-sky-500 text-white': selectedTime === slot.time,
+                                                        'bg-slate-100 text-slate-400 cursor-not-allowed line-through': !slot.available,
+                                                        'bg-emerald-50 border-2 border-emerald-500 text-emerald-700 hover:bg-emerald-100': slot.available && selectedTime !== slot.time
+                                                    }" :disabled="!slot.available"
                                         class="py-3 px-4 rounded-xl text-sm font-medium transition" x-text="slot.time">
                                     </button>
                                 </template>
@@ -280,7 +282,7 @@ Features:
                                     <span x-text="selectedDateFormatted"></span> - <span x-text="selectedTime"></span> WIB
                                 </p>
                             </div>
-                            <a href="{{ url('/patients/register') }}?doctor={{ $doctor['id'] }}"
+                            <a :href="`{{ url('/patients/register') }}?doctor={{ $doctor['id'] }}&doctor_name={{ urlencode($doctor['name']) }}&specialty={{ urlencode($doctor['specialty'] ?? 'Dokter Gigi Umum') }}&date=${selectedDate}&time=${selectedTime}`"
                                 class="inline-flex items-center px-8 py-4 bg-gradient-to-r from-sky-500 to-emerald-500 text-white font-bold rounded-xl shadow-lg shadow-sky-500/30 hover:shadow-sky-500/50 hover:scale-105 transition-all duration-300">
                                 <i data-lucide="calendar-check" class="w-5 h-5 mr-2"></i>
                                 Buat Janji

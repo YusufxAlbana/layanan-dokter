@@ -5,70 +5,259 @@
             "name": "Pemeriksaan Gigi",
             "price": 150000,
             "duration": 30,
-            "description": "Pemeriksaan kondisi gigi dan mulut secara menyeluruh"
+            "description": "Pemeriksaan kondisi gigi dan mulut secara menyeluruh",
+            "image": "/images/services/pemeriksaan.png",
+            "full_description": "Pemeriksaan gigi rutin adalah langkah pencegahan terpenting untuk menjaga kesehatan gigi dan mulut Anda. Dokter gigi akan memeriksa kondisi gigi, gusi, lidah, dan seluruh rongga mulut untuk mendeteksi masalah sejak dini. Pemeriksaan ini menggunakan peralatan modern termasuk kamera intraoral dan X-ray digital jika diperlukan.",
+            "benefits": [
+                "Deteksi dini masalah gigi dan gusi",
+                "Pencegahan kerusakan gigi lebih lanjut",
+                "Konsultasi perawatan yang tepat",
+                "Pemeriksaan kondisi mulut secara menyeluruh",
+                "Rekomendasi perawatan personal"
+            ],
+            "process": [
+                "Pendaftaran dan anamnesis riwayat kesehatan",
+                "Pemeriksaan visual kondisi gigi dan gusi",
+                "Pemeriksaan dengan alat khusus (probe, mirror)",
+                "Foto rontgen jika diperlukan",
+                "Konsultasi hasil dan rekomendasi perawatan"
+            ],
+            "category": "Pemeriksaan",
+            "popular": true
         },
         {
             "id": "S002",
             "name": "Pembersihan Karang Gigi",
             "price": 300000,
             "duration": 45,
-            "description": "Scaling untuk membersihkan karang gigi dan plak"
+            "description": "Scaling untuk membersihkan karang gigi dan plak",
+            "image": "/images/services/scaling.png",
+            "full_description": "Pembersihan karang gigi (scaling) adalah prosedur untuk menghilangkan plak dan tartar yang menumpuk pada permukaan gigi dan di bawah garis gusi. Penumpukan karang gigi dapat menyebabkan gusi berdarah, bau mulut, dan penyakit gusi. Prosedur ini menggunakan alat ultrasonic scaler yang efektif dan nyaman.",
+            "benefits": [
+                "Menghilangkan plak dan karang gigi",
+                "Mencegah penyakit gusi (gingivitis dan periodontitis)",
+                "Menghilangkan bau mulut",
+                "Gigi terlihat lebih bersih dan cerah",
+                "Mencegah gigi tanggal akibat kerusakan gusi"
+            ],
+            "process": [
+                "Pemeriksaan kondisi gigi dan gusi",
+                "Pembersihan dengan ultrasonic scaler",
+                "Pembersihan manual pada area sulit dijangkau",
+                "Polishing untuk menghaluskan permukaan gigi",
+                "Pembilasan dan evaluasi hasil"
+            ],
+            "category": "Perawatan Preventif",
+            "popular": true
         },
         {
             "id": "S003",
             "name": "Tambal Gigi",
             "price": 250000,
             "duration": 45,
-            "description": "Penambalan gigi berlubang dengan bahan komposit"
+            "description": "Penambalan gigi berlubang dengan bahan komposit",
+            "image": "/images/services/tambal.png",
+            "full_description": "Penambalan gigi adalah prosedur untuk memperbaiki gigi yang berlubang atau rusak. Kami menggunakan bahan komposit berkualitas tinggi yang sewarna dengan gigi asli, sehingga hasil tambalannya terlihat alami. Prosedur ini dilakukan dengan teknologi bonding modern untuk hasil yang tahan lama.",
+            "benefits": [
+                "Menghentikan perkembangan lubang gigi",
+                "Mengembalikan fungsi kunyah normal",
+                "Hasil tambalan estetis dan natural",
+                "Melindungi gigi dari kerusakan lebih lanjut",
+                "Menghilangkan rasa sakit akibat gigi berlubang"
+            ],
+            "process": [
+                "Pemeriksaan dan foto rontgen gigi",
+                "Pemberian anestesi lokal",
+                "Pembersihan area gigi yang rusak",
+                "Aplikasi bonding agent",
+                "Penambalan dengan bahan komposit",
+                "Penyesuaian oklusi dan finishing"
+            ],
+            "category": "Restorasi",
+            "popular": true
         },
         {
             "id": "S004",
             "name": "Cabut Gigi",
             "price": 200000,
             "duration": 30,
-            "description": "Pencabutan gigi dengan anestesi lokal"
+            "description": "Pencabutan gigi dengan anestesi lokal",
+            "image": "/images/services/cabut.png",
+            "full_description": "Pencabutan gigi dilakukan ketika gigi tidak bisa diselamatkan lagi atau karena alasan tertentu seperti gigi bungsu yang tumbuh tidak normal. Prosedur ini dilakukan dengan teknik modern dan anestesi yang efektif untuk memastikan kenyamanan pasien. Tim kami berpengalaman dalam pencabutan gigi sederhana maupun kompleks.",
+            "benefits": [
+                "Menghilangkan sumber infeksi",
+                "Menghentikan rasa sakit",
+                "Mencegah penyebaran infeksi ke gigi lain",
+                "Memberi ruang untuk gigi pengganti",
+                "Prosedur aman dengan anestesi modern"
+            ],
+            "process": [
+                "Pemeriksaan dan foto rontgen",
+                "Pemberian anestesi lokal",
+                "Pelonggaran gigi dengan elevator",
+                "Pencabutan gigi dengan forceps",
+                "Pembersihan soket dan kontrol perdarahan",
+                "Instruksi perawatan pasca pencabutan"
+            ],
+            "category": "Bedah Minor",
+            "popular": false
         },
         {
             "id": "S005",
             "name": "Bleaching",
             "price": 1500000,
             "duration": 90,
-            "description": "Pemutihan gigi untuk mendapatkan senyum lebih cerah"
+            "description": "Pemutihan gigi untuk mendapatkan senyum lebih cerah",
+            "image": "/images/services/bleaching.png",
+            "full_description": "Bleaching gigi adalah prosedur kosmetik untuk memutihkan dan mencerahkan warna gigi yang mengalami diskolorasi. Kami menggunakan teknologi bleaching profesional dengan bahan berkualitas tinggi yang aman dan efektif. Hasilnya bisa bertahan 1-3 tahun dengan perawatan yang tepat.",
+            "benefits": [
+                "Gigi tampak lebih putih dan cerah",
+                "Meningkatkan kepercayaan diri",
+                "Hasil cepat terlihat dalam satu kali kunjungan",
+                "Prosedur aman dengan bahan berkualitas",
+                "Senyum lebih menarik dan menawan"
+            ],
+            "process": [
+                "Konsultasi dan pemeriksaan kelayakan",
+                "Pembersihan gigi sebelum bleaching",
+                "Pemasangan pelindung gusi",
+                "Aplikasi gel bleaching profesional",
+                "Aktivasi dengan lampu khusus",
+                "Evaluasi hasil dan perawatan lanjutan"
+            ],
+            "category": "Estetika",
+            "popular": true
         },
         {
             "id": "S006",
             "name": "Konsultasi Kawat Gigi",
             "price": 200000,
             "duration": 30,
-            "description": "Konsultasi dan perencanaan pemasangan kawat gigi"
+            "description": "Konsultasi dan perencanaan pemasangan kawat gigi",
+            "image": "/images/services/konsultasi-kawat.png",
+            "full_description": "Konsultasi kawat gigi adalah langkah pertama untuk perawatan ortodonti. Dokter spesialis ortodonti akan melakukan pemeriksaan menyeluruh, mengambil foto dan cetakan gigi, serta merancang rencana perawatan yang tepat untuk kondisi Anda. Konsultasi ini penting untuk memahami jenis kawat gigi yang sesuai dan estimasi durasi perawatan.",
+            "benefits": [
+                "Pemeriksaan lengkap kondisi susunan gigi",
+                "Penjelasan jenis-jenis kawat gigi",
+                "Estimasi biaya dan durasi perawatan",
+                "Rencana perawatan personal",
+                "Konsultasi dengan dokter spesialis ortodonti"
+            ],
+            "process": [
+                "Pemeriksaan kondisi gigi dan rahang",
+                "Foto panoramik dan sefalometri",
+                "Pencetakan gigi untuk model studi",
+                "Analisis dan diagnosa",
+                "Presentasi rencana perawatan",
+                "Diskusi pilihan kawat gigi dan biaya"
+            ],
+            "category": "Ortodonti",
+            "popular": false
         },
         {
             "id": "S007",
             "name": "Kawat Gigi",
             "price": 15000000,
             "duration": 60,
-            "description": "Pemasangan kawat gigi untuk koreksi susunan gigi"
+            "description": "Pemasangan kawat gigi untuk koreksi susunan gigi",
+            "image": "/images/services/kawat.png",
+            "full_description": "Kawat gigi (braces) adalah alat ortodonti untuk memperbaiki susunan gigi yang tidak rata, renggang, atau bertumpuk. Kami menyediakan berbagai pilihan kawat gigi mulai dari metal braces, ceramic braces, hingga self-ligating braces. Perawatan ini membutuhkan kontrol rutin setiap 3-4 minggu dan durasi total sekitar 1-3 tahun tergantung kompleksitas kasus.",
+            "benefits": [
+                "Susunan gigi menjadi rapi dan rata",
+                "Mengoreksi masalah gigitan (overbite, underbite, crossbite)",
+                "Meningkatkan fungsi kunyah",
+                "Senyum lebih percaya diri",
+                "Kesehatan gigi dan gusi lebih baik"
+            ],
+            "process": [
+                "Pemeriksaan dan perencanaan perawatan",
+                "Pemasangan bracket dan wire",
+                "Kontrol rutin setiap 3-4 minggu",
+                "Penyesuaian kekuatan kawat",
+                "Monitoring perkembangan perawatan",
+                "Pelepasan kawat dan pemasangan retainer"
+            ],
+            "category": "Ortodonti",
+            "popular": true
         },
         {
             "id": "S008",
             "name": "Pasang Crown",
             "price": 2500000,
             "duration": 60,
-            "description": "Pemasangan mahkota gigi untuk restorasi"
+            "description": "Pemasangan mahkota gigi untuk restorasi",
+            "image": "/images/services/crown.png",
+            "full_description": "Crown atau mahkota gigi adalah selubung buatan yang dipasang untuk menutupi dan melindungi gigi yang rusak atau lemah. Crown dapat dibuat dari berbagai bahan seperti porcelain, zirkonia, atau metal-porcelain. Prosedur ini ideal untuk gigi yang sudah dirawat saluran akar, gigi patah, atau gigi dengan tambalan besar.",
+            "benefits": [
+                "Melindungi gigi yang lemah dari kerusakan",
+                "Mengembalikan bentuk dan fungsi gigi",
+                "Hasil estetis mirip gigi asli",
+                "Daya tahan tinggi dan tahan lama",
+                "Mencegah patahnya gigi yang rapuh"
+            ],
+            "process": [
+                "Pemeriksaan dan foto rontgen",
+                "Penghalusan gigi untuk persiapan crown",
+                "Pencetakan gigi untuk pembuatan crown",
+                "Pemasangan crown sementara",
+                "Pembuatan crown di laboratorium",
+                "Pemasangan crown permanen"
+            ],
+            "category": "Restorasi",
+            "popular": false
         },
         {
             "id": "S009",
             "name": "Perawatan Saluran Akar",
             "price": 1200000,
             "duration": 90,
-            "description": "Root canal treatment untuk gigi yang terinfeksi"
+            "description": "Root canal treatment untuk gigi yang terinfeksi",
+            "image": "/images/services/saluran-akar.png",
+            "full_description": "Perawatan saluran akar (root canal treatment) adalah prosedur untuk menyelamatkan gigi yang sudah terinfeksi sampai ke bagian saraf/pulpa. Prosedur ini menghilangkan jaringan yang terinfeksi, membersihkan saluran akar, dan mengisi saluran dengan bahan khusus. Dengan perawatan ini, gigi yang seharusnya dicabut bisa dipertahankan.",
+            "benefits": [
+                "Menyelamatkan gigi yang sudah terinfeksi",
+                "Menghilangkan rasa sakit akibat infeksi",
+                "Mencegah penyebaran infeksi",
+                "Mempertahankan gigi asli lebih lama",
+                "Menghindari kebutuhan pencabutan gigi"
+            ],
+            "process": [
+                "Pemeriksaan dan foto rontgen",
+                "Pemberian anestesi lokal",
+                "Pembukaan akses ke ruang pulpa",
+                "Pengangkatan jaringan pulpa yang terinfeksi",
+                "Pembersihan dan pembentukan saluran akar",
+                "Pengisian saluran akar",
+                "Restorasi gigi dengan tambalan/crown"
+            ],
+            "category": "Endodonti",
+            "popular": false
         },
         {
             "id": "S010",
             "name": "Veneer Gigi",
             "price": 3000000,
             "duration": 60,
-            "description": "Pelapisan gigi untuk estetika yang lebih baik"
+            "description": "Pelapisan gigi untuk estetika yang lebih baik",
+            "image": "/images/services/veneer.png",
+            "full_description": "Veneer gigi adalah lapisan tipis dari porcelain atau komposit yang dipasang di permukaan depan gigi untuk memperbaiki penampilan. Veneer dapat mengatasi masalah warna gigi yang tidak bisa diputihkan, gigi renggang, gigi patah, atau bentuk gigi yang tidak proporsional. Hasilnya sangat natural dan tahan lama hingga 10-15 tahun.",
+            "benefits": [
+                "Penampilan gigi lebih rapi dan putih",
+                "Menutupi noda yang tidak bisa diputihkan",
+                "Memperbaiki bentuk gigi yang tidak rata",
+                "Menutup celah antar gigi",
+                "Hasil natural dan tahan lama"
+            ],
+            "process": [
+                "Konsultasi dan perencanaan design smile",
+                "Penghalusan email gigi minimal",
+                "Pencetakan gigi untuk pembuatan veneer",
+                "Pembuatan veneer di laboratorium",
+                "Uji coba fitting veneer",
+                "Bonding permanen veneer ke gigi"
+            ],
+            "category": "Estetika",
+            "popular": true
         }
     ]
 }

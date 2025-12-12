@@ -76,13 +76,11 @@ Halaman daftar layanan dan harga.
                     <template x-for="service in filteredServices" :key="service.id">
                         <div
                             class="group bg-white rounded-3xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-300 border border-slate-100">
-                            {{-- Icon Header --}}
-                            <div class="relative h-48 flex items-center justify-center"
-                                :class="getGradientClass(service.id)">
-                                <div
-                                    class="w-24 h-24 bg-white/20 backdrop-blur rounded-2xl flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
-                                    <i :data-lucide="getIcon(service.name)" class="w-12 h-12 text-white"></i>
-                                </div>
+                            {{-- Image Header --}}
+                            <div class="relative h-48 overflow-hidden">
+                                <img :src="service.image" :alt="service.name"
+                                    class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500">
+                                <div class="absolute inset-0 bg-gradient-to-t from-black/30 to-transparent"></div>
                                 {{-- Duration Badge --}}
                                 <div
                                     class="absolute top-4 right-4 px-3 py-1 bg-white/90 backdrop-blur rounded-full text-sm font-medium text-slate-700">

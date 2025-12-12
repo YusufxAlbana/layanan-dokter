@@ -103,10 +103,10 @@ Halaman daftar layanan dan harga.
                                 </div>
 
                                 {{-- CTA Button --}}
-                                <a href="{{ url('/patients/register') }}"
+                                <a :href="'/services/' + service.id"
                                     class="w-full inline-flex items-center justify-center px-4 py-3 bg-gradient-to-r from-sky-500 to-emerald-500 text-white font-semibold rounded-xl shadow-lg shadow-sky-500/30 hover:shadow-sky-500/50 hover:scale-105 transition-all">
-                                    <i data-lucide="calendar-plus" class="w-5 h-5 mr-2"></i>
-                                    Buat Janji
+                                    <i data-lucide="eye" class="w-5 h-5 mr-2"></i>
+                                    Lihat Layanan Detail
                                 </a>
                             </div>
                         </div>

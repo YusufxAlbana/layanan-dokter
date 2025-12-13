@@ -153,98 +153,155 @@ TODO Backend:
                 </div>
 
                 {{-- Appointment Details --}}
-                <div class="bg-white rounded-2xl shadow-lg border border-slate-100 p-6">
-                    <h2 class="text-lg font-semibold text-slate-800 mb-6 flex items-center">
-                        <i data-lucide="calendar" class="w-5 h-5 mr-2 text-sky-500"></i>
-                        Detail Janji Temu
-                    </h2>
+                <div class="bg-white rounded-2xl shadow-lg border border-slate-100 overflow-hidden">
+                    <div class="bg-gradient-to-r from-slate-50 to-slate-100 p-6 border-b border-slate-100">
+                        <h2 class="text-lg font-bold text-slate-800 flex items-center">
+                            <div
+                                class="w-10 h-10 bg-sky-100 rounded-full flex items-center justify-center mr-3 text-sky-600">
+                                <i data-lucide="calendar" class="w-5 h-5"></i>
+                            </div>
+                            Detail Janji Temu
+                        </h2>
+                    </div>
 
-                    <div class="grid sm:grid-cols-2 gap-4">
-                        {{-- Dokter - Readonly jika sudah dipilih dari schedule --}}
+                    <div class="p-6 grid sm:grid-cols-2 gap-6">
+                        {{-- Dokter --}}
                         <div class="sm:col-span-2">
-                            <label class="block text-sm font-medium text-slate-700 mb-2">Dokter <span
-                                    class="text-red-500">*</span></label>
+                            <label class="block text-sm font-semibold text-slate-700 mb-2">Pilih Dokter</label>
                             <template x-if="hasPrefilledSchedule">
                                 <div
-                                    class="w-full px-4 py-3 bg-emerald-50 border border-emerald-200 rounded-xl text-emerald-700 font-medium flex items-center">
-                                    <i data-lucide="user-check" class="w-5 h-5 mr-2"></i>
+                                    class="w-full px-4 py-4 bg-emerald-50 border border-emerald-200 rounded-xl text-emerald-700 font-bold flex items-center shadow-sm">
+                                    <div class="w-8 h-8 bg-emerald-100 rounded-full flex items-center justify-center mr-3">
+                                        <i data-lucide="user-check" class="w-4 h-4"></i>
+                                    </div>
                                     <span x-text="prefilledDoctor"></span>
                                     <input type="hidden" x-model="form.doctor">
                                 </div>
                             </template>
                             <template x-if="!hasPrefilledSchedule">
-                                <select x-model="form.doctor" required
-                                    class="w-full px-4 py-3 bg-slate-50 border border-slate-200 rounded-xl focus:ring-2 focus:ring-sky-500 focus:border-sky-500 transition">
-                                    <option value="">Pilih dokter</option>
-                                    <option value="dr-andi">Dr. Andi Pratama, Sp.KG</option>
-                                    <option value="dr-sarah">Dr. Sarah Amanda, Sp.Ort</option>
-                                    <option value="dr-rizki">Dr. Rizki Hidayat, Sp.BM</option>
-                                    <option value="dr-maya">Dr. Maya Putri, Sp.KGA</option>
-                                    <option value="dr-hendra">Dr. Hendra Wijaya, Sp.Pros</option>
-                                </select>
+                                <div class="relative group">
+                                    <div class="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
+                                        <i data-lucide="stethoscope"
+                                            class="w-5 h-5 text-slate-400 group-focus-within:text-sky-500 transition-colors"></i>
+                                    </div>
+                                    <select x-model="form.doctor" required @change="onDoctorChange($event)"
+                                        class="w-full pl-12 pr-4 py-4 bg-slate-50 border border-slate-200 rounded-xl focus:ring-2 focus:ring-sky-500 focus:border-sky-500 transition-all font-medium appearance-none">
+                                        <option value="">Pilih Dokter Spesialis</option>
+                                        <template x-for="doctor in doctors" :key="doctor.id">
+                                            <option :value="doctor.id" x-text="doctor.name + ' - ' + doctor.specialty">
+                                            </option>
+                                        </template>
+                                    </select>
+                                    <div class="absolute inset-y-0 right-0 pr-4 flex items-center pointer-events-none">
+                                        <i data-lucide="chevron-down" class="w-5 h-5 text-slate-400"></i>
+                                    </div>
+                                </div>
                             </template>
                         </div>
 
-                        {{-- Tanggal - Disabled jika sudah dipilih dari schedule --}}
+                        {{-- Tanggal --}}
                         <div>
-                            <label class="block text-sm font-medium text-slate-700 mb-2">Tanggal <span
-                                    class="text-red-500">*</span></label>
-                            <input type="date" x-model="form.date" required :min="minDate" :disabled="hasPrefilledSchedule"
-                                :class="hasPrefilledSchedule ? 'bg-emerald-50 border-emerald-200 text-emerald-700' : 'bg-slate-50 border-slate-200'"
-                                class="w-full px-4 py-3 rounded-xl focus:ring-2 focus:ring-sky-500 focus:border-sky-500 transition">
-                        </div>
-
-                        {{-- Waktu - Disabled jika sudah dipilih dari schedule --}}
-                        <div>
-                            <label class="block text-sm font-medium text-slate-700 mb-2">Waktu <span
-                                    class="text-red-500">*</span></label>
+                            <label class="block text-sm font-semibold text-slate-700 mb-2">Tanggal Kunjungan</label>
                             <template x-if="hasPrefilledSchedule">
                                 <div
-                                    class="w-full px-4 py-3 bg-emerald-50 border border-emerald-200 rounded-xl text-emerald-700 font-medium flex items-center">
-                                    <i data-lucide="clock" class="w-5 h-5 mr-2"></i>
+                                    class="w-full px-4 py-4 bg-emerald-50 border border-emerald-200 rounded-xl text-emerald-700 font-bold flex items-center shadow-sm">
+                                    <div class="w-8 h-8 bg-emerald-100 rounded-full flex items-center justify-center mr-3">
+                                        <i data-lucide="calendar-check" class="w-4 h-4"></i>
+                                    </div>
+                                    <span x-text="formattedPrefilledDate"></span>
+                                    <input type="hidden" x-model="form.date">
+                                </div>
+                            </template>
+                            <template x-if="!hasPrefilledSchedule">
+                                <div class="relative group">
+                                    <div class="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
+                                        <i data-lucide="calendar"
+                                            class="w-5 h-5 text-slate-400 group-focus-within:text-sky-500 transition-colors"></i>
+                                    </div>
+                                    <input type="date" x-model="form.date" required :min="minDate"
+                                        class="w-full pl-12 pr-4 py-4 bg-slate-50 border border-slate-200 rounded-xl focus:ring-2 focus:ring-sky-500 focus:border-sky-500 transition-all font-medium cursor-pointer"
+                                        onclick="this.showPicker()">
+                                </div>
+                            </template>
+                        </div>
+
+                        {{-- Waktu --}}
+                        <div>
+                            <label class="block text-sm font-semibold text-slate-700 mb-2">Jam Kedatangan</label>
+                            <template x-if="hasPrefilledSchedule">
+                                <div
+                                    class="w-full px-4 py-4 bg-emerald-50 border border-emerald-200 rounded-xl text-emerald-700 font-bold flex items-center shadow-sm">
+                                    <div class="w-8 h-8 bg-emerald-100 rounded-full flex items-center justify-center mr-3">
+                                        <i data-lucide="clock" class="w-4 h-4"></i>
+                                    </div>
                                     <span x-text="prefilledTime + ' WIB'"></span>
                                     <input type="hidden" x-model="form.time">
                                 </div>
                             </template>
                             <template x-if="!hasPrefilledSchedule">
-                                <select x-model="form.time" required
-                                    class="w-full px-4 py-3 bg-slate-50 border border-slate-200 rounded-xl focus:ring-2 focus:ring-sky-500 focus:border-sky-500 transition">
-                                    <option value="">Pilih waktu</option>
-                                    <option value="09:00">09:00 WIB</option>
-                                    <option value="10:00">10:00 WIB</option>
-                                    <option value="11:00">11:00 WIB</option>
-                                    <option value="13:00">13:00 WIB</option>
-                                    <option value="14:00">14:00 WIB</option>
-                                    <option value="15:00">15:00 WIB</option>
-                                    <option value="16:00">16:00 WIB</option>
-                                </select>
+                                <div class="relative group">
+                                    <div class="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
+                                        <i data-lucide="clock"
+                                            class="w-5 h-5 text-slate-400 group-focus-within:text-sky-500 transition-colors"></i>
+                                    </div>
+                                    <select x-model="form.time" required
+                                        class="w-full pl-12 pr-4 py-4 bg-slate-50 border border-slate-200 rounded-xl focus:ring-2 focus:ring-sky-500 focus:border-sky-500 transition-all font-medium appearance-none">
+                                        <option value="">Pilih Jam</option>
+                                        <option value="09:00">09:00 WIB</option>
+                                        <option value="10:00">10:00 WIB</option>
+                                        <option value="11:00">11:00 WIB</option>
+                                        <option value="13:00">13:00 WIB</option>
+                                        <option value="14:00">14:00 WIB</option>
+                                        <option value="15:00">15:00 WIB</option>
+                                        <option value="16:00">16:00 WIB</option>
+                                    </select>
+                                    <div class="absolute inset-y-0 right-0 pr-4 flex items-center pointer-events-none">
+                                        <i data-lucide="chevron-down" class="w-5 h-5 text-slate-400"></i>
+                                    </div>
+                                </div>
                             </template>
                         </div>
 
-                        {{-- Layanan - Filter berdasarkan specialty dokter --}}
+                        {{-- Layanan --}}
                         <div class="sm:col-span-2">
-                            <label class="block text-sm font-medium text-slate-700 mb-2">Pilih Layanan <span
-                                    class="text-red-500">*</span></label>
-                            <select x-model="form.service" required
-                                class="w-full px-4 py-3 bg-slate-50 border border-slate-200 rounded-xl focus:ring-2 focus:ring-sky-500 focus:border-sky-500 transition">
-                                <option value="">Pilih layanan</option>
-                                <template x-for="service in availableServices" :key="service.id">
-                                    <option :value="service.id"
-                                        x-text="service.name + ' - Rp ' + service.price.toLocaleString('id-ID')"></option>
-                                </template>
-                            </select>
-                            <p x-show="hasPrefilledSchedule" class="text-xs text-slate-500 mt-1">
-                                <i data-lucide="info" class="w-3 h-3 inline mr-1"></i>
-                                Layanan sesuai dengan keahlian <span x-text="prefilledSpecialty" class="font-medium"></span>
+                            <label class="block text-sm font-semibold text-slate-700 mb-2">Jenis Layanan</label>
+                            <div class="relative group">
+                                <div class="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
+                                    <i data-lucide="activity"
+                                        class="w-5 h-5 text-slate-400 group-focus-within:text-sky-500 transition-colors"></i>
+                                </div>
+                                <select x-model="form.service" required
+                                    class="w-full pl-12 pr-4 py-4 bg-slate-50 border border-slate-200 rounded-xl focus:ring-2 focus:ring-sky-500 focus:border-sky-500 transition-all font-medium appearance-none">
+                                    <option value="">Pilih Layanan Perawatan</option>
+                                    <template x-for="service in availableServices" :key="service.id">
+                                        <option :value="service.id"
+                                            x-text="service.name + ' - Rp ' + service.price.toLocaleString('id-ID')">
+                                        </option>
+                                    </template>
+                                </select>
+                                <div class="absolute inset-y-0 right-0 pr-4 flex items-center pointer-events-none">
+                                    <i data-lucide="chevron-down" class="w-5 h-5 text-slate-400"></i>
+                                </div>
+                            </div>
+                            <p x-show="hasPrefilledSchedule" class="text-xs text-slate-500 mt-2 flex items-center">
+                                <i data-lucide="info" class="w-3 h-3 mr-1"></i>
+                                Layanan disesuaikan dengan keahlian dokter: <span x-text="prefilledSpecialty"
+                                    class="font-bold ml-1 text-sky-600"></span>
                             </p>
                         </div>
 
+                        {{-- Keluhan --}}
                         <div class="sm:col-span-2">
-                            <label class="block text-sm font-medium text-slate-700 mb-2">Keluhan <span
-                                    class="text-red-500">*</span></label>
-                            <textarea x-model="form.complaint" required rows="3"
-                                placeholder="Jelaskan keluhan atau alasan kunjungan Anda..."
-                                class="w-full px-4 py-3 bg-slate-50 border border-slate-200 rounded-xl focus:ring-2 focus:ring-sky-500 focus:border-sky-500 transition resize-none"></textarea>
+                            <label class="block text-sm font-semibold text-slate-700 mb-2">Keluhan / Catatan</label>
+                            <div class="relative group">
+                                <div class="absolute top-4 left-4 pointer-events-none">
+                                    <i data-lucide="message-square"
+                                        class="w-5 h-5 text-slate-400 group-focus-within:text-sky-500 transition-colors"></i>
+                                </div>
+                                <textarea x-model="form.complaint" required rows="3"
+                                    placeholder="Jelaskan keluhan gigi Anda secara singkat..."
+                                    class="w-full pl-12 pr-4 py-4 bg-slate-50 border border-slate-200 rounded-xl focus:ring-2 focus:ring-sky-500 focus:border-sky-500 transition-all resize-none font-medium"></textarea>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -279,31 +336,33 @@ TODO Backend:
 
 @push('scripts')
     <script>
-        function bookingForm() {
-            return {
-                isLoggedIn: false,
-                isGuest: false,
-                currentUser: null,
-                loading: false,
-                minDate: new Date().toISOString().split('T')[0],
+                    function bookingForm() {
+                return {
+                    isLoggedIn: false,
+                    isGuest: false,
+                    currentUser: null,
+                    loading: false,
+                    minDate: new Date().toISOString().split('T')[0],
+                    doctors: [],
+                    selectedDoctorSpecialty: '',
 
-                form: {
-                    name: '',
-                    email: '',
-                    phone: '',
-                    birthDate: '',
-                    gender: '',
-                    address: '',
-                    service: '',
-                    doctor: '',
-                    date: '',
-                    time: '',
-                    complaint: ''
-                },
+                    form: {
+                        name: '',
+                        email: '',
+                        phone: '',
+                        birthDate: '',
+                        gender: '',
+                        address: '',
+                        service: '',
+                        doctor: '',
+                        date: '',
+                        time: '',
+                        complaint: ''
+                    },
 
-                prefilledDoctor: '',
-                prefilledDoctorId: '',
-                prefilledSpecialty: '',
+                    prefilledDoctor: '',
+                    prefilledDoctorId: '',
+                    prefilledSpecialty: '',
                     prefilledDate: '',
                     prefilledTime: '',
 
@@ -364,8 +423,13 @@ TODO Backend:
                     },
 
                     get availableServices() {
+                        // Jika sudah ada prefilled specialty (dari halaman schedule)
                         if (this.prefilledSpecialty && this.specialtyServices[this.prefilledSpecialty]) {
                             return this.specialtyServices[this.prefilledSpecialty];
+                        }
+                        // Jika dokter dipilih dari dropdown, gunakan specialty dokter tersebut
+                        if (this.selectedDoctorSpecialty && this.specialtyServices[this.selectedDoctorSpecialty]) {
+                            return this.specialtyServices[this.selectedDoctorSpecialty];
                         }
                         // Default: tampilkan layanan umum
                         return this.specialtyServices['Dokter Gigi Umum'];
@@ -378,7 +442,10 @@ TODO Backend:
                         return date.toLocaleDateString('id-ID', options);
                     },
 
-                    init() {
+                    async init() {
+                        // Load doctors from API
+                        await this.loadDoctors();
+
                         // Check if user is logged in
                         const user = localStorage.getItem('klinik_current_user');
                         if (user) {
@@ -418,6 +485,29 @@ TODO Backend:
                         if (time) {
                             this.prefilledTime = time;
                             this.form.time = time;
+                        }
+                    },
+
+                    async loadDoctors() {
+                        try {
+                            const response = await fetch('/api/doctors');
+                            const data = await response.json();
+                            this.doctors = data.doctors || [];
+                        } catch (error) {
+                            console.error('Error loading doctors:', error);
+                            this.doctors = [];
+                        }
+                    },
+
+                    onDoctorChange(event) {
+                        const doctorId = event.target.value;
+                        const doctor = this.doctors.find(d => d.id === doctorId);
+                        if (doctor) {
+                            this.selectedDoctorSpecialty = doctor.specialty;
+                            // Reset service selection when doctor changes
+                            this.form.service = '';
+                        } else {
+                            this.selectedDoctorSpecialty = '';
                         }
                     },
 

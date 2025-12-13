@@ -143,111 +143,124 @@ TODO Backend:
 
             {{-- Services Grid --}}
             <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-8">
-                {{-- Service 1 --}}
-                <div
-                    class="group p-8 bg-gradient-to-br from-slate-50 to-white rounded-3xl border border-slate-100 hover:border-sky-200 hover:shadow-xl hover:shadow-sky-500/10 transition-all duration-300">
-                    <div
-                        class="w-16 h-16 bg-gradient-to-br from-sky-500 to-sky-600 rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform shadow-lg shadow-sky-500/30">
-                        <i data-lucide="search" class="w-8 h-8 text-white"></i>
+                {{-- Service 1: Pemeriksaan Gigi --}}
+                <a href="{{ url('/services/S001') }}"
+                    class="group block bg-white rounded-3xl border border-slate-100 hover:border-sky-200 hover:shadow-xl hover:shadow-sky-500/10 transition-all duration-300 overflow-hidden cursor-pointer">
+                    <div class="h-48 overflow-hidden">
+                        <img src="{{ asset('images/services/pemeriksaan_gigi.png') }}" alt="Pemeriksaan Gigi"
+                            class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500">
                     </div>
-                    <h3 class="text-xl font-bold text-slate-800 mb-3">Pemeriksaan Gigi</h3>
-                    <p class="text-slate-600 mb-4">Pemeriksaan menyeluruh untuk mendeteksi masalah gigi dan gusi sejak dini.
-                    </p>
-                    <a href="{{ url('/services/S001') }}"
-                        class="inline-flex items-center text-sky-600 font-semibold group-hover:text-sky-700">
-                        Pelajari Lebih
-                        <i data-lucide="arrow-right"
-                            class="w-4 h-4 ml-2 group-hover:translate-x-1 transition-transform"></i>
-                    </a>
-                </div>
+                    <div class="p-6">
+                        <h3 class="text-xl font-bold text-slate-800 mb-3 group-hover:text-sky-600 transition-colors">
+                            Pemeriksaan Gigi</h3>
+                        <p class="text-slate-600 mb-4">Pemeriksaan menyeluruh untuk mendeteksi masalah gigi dan gusi sejak
+                            dini.</p>
+                        <span class="inline-flex items-center text-sky-600 font-semibold group-hover:text-sky-700">
+                            Pelajari Lebih
+                            <i data-lucide="arrow-right"
+                                class="w-4 h-4 ml-2 group-hover:translate-x-1 transition-transform"></i>
+                        </span>
+                    </div>
+                </a>
 
-                {{-- Service 2 --}}
-                <div
-                    class="group p-8 bg-gradient-to-br from-slate-50 to-white rounded-3xl border border-slate-100 hover:border-emerald-200 hover:shadow-xl hover:shadow-emerald-500/10 transition-all duration-300">
-                    <div
-                        class="w-16 h-16 bg-gradient-to-br from-emerald-500 to-emerald-600 rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform shadow-lg shadow-emerald-500/30">
-                        <i data-lucide="sparkles" class="w-8 h-8 text-white"></i>
+                {{-- Service 2: Pembersihan Karang --}}
+                <a href="{{ url('/services/S002') }}"
+                    class="group block bg-white rounded-3xl border border-slate-100 hover:border-emerald-200 hover:shadow-xl hover:shadow-emerald-500/10 transition-all duration-300 overflow-hidden cursor-pointer">
+                    <div class="h-48 overflow-hidden">
+                        <img src="{{ asset('images/services/pembersihan_karang.png') }}" alt="Pembersihan Karang"
+                            class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500">
                     </div>
-                    <h3 class="text-xl font-bold text-slate-800 mb-3">Pembersihan Karang</h3>
-                    <p class="text-slate-600 mb-4">Scaling dan pembersihan karang gigi untuk kesehatan mulut optimal.</p>
-                    <a href="{{ url('/services/S002') }}"
-                        class="inline-flex items-center text-emerald-600 font-semibold group-hover:text-emerald-700">
-                        Pelajari Lebih
-                        <i data-lucide="arrow-right"
-                            class="w-4 h-4 ml-2 group-hover:translate-x-1 transition-transform"></i>
-                    </a>
-                </div>
+                    <div class="p-6">
+                        <h3 class="text-xl font-bold text-slate-800 mb-3 group-hover:text-emerald-600 transition-colors">
+                            Pembersihan Karang</h3>
+                        <p class="text-slate-600 mb-4">Scaling dan pembersihan karang gigi untuk kesehatan mulut optimal.
+                        </p>
+                        <span class="inline-flex items-center text-emerald-600 font-semibold group-hover:text-emerald-700">
+                            Pelajari Lebih
+                            <i data-lucide="arrow-right"
+                                class="w-4 h-4 ml-2 group-hover:translate-x-1 transition-transform"></i>
+                        </span>
+                    </div>
+                </a>
 
-                {{-- Service 3 --}}
-                <div
-                    class="group p-8 bg-gradient-to-br from-slate-50 to-white rounded-3xl border border-slate-100 hover:border-amber-200 hover:shadow-xl hover:shadow-amber-500/10 transition-all duration-300">
-                    <div
-                        class="w-16 h-16 bg-gradient-to-br from-amber-500 to-amber-600 rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform shadow-lg shadow-amber-500/30">
-                        <i data-lucide="smile" class="w-8 h-8 text-white"></i>
+                {{-- Service 3: Bleaching Gigi --}}
+                <a href="{{ url('/services/S005') }}"
+                    class="group block bg-white rounded-3xl border border-slate-100 hover:border-amber-200 hover:shadow-xl hover:shadow-amber-500/10 transition-all duration-300 overflow-hidden cursor-pointer">
+                    <div class="h-48 overflow-hidden">
+                        <img src="{{ asset('images/services/bleaching_gigi.png') }}" alt="Bleaching Gigi"
+                            class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500">
                     </div>
-                    <h3 class="text-xl font-bold text-slate-800 mb-3">Bleaching Gigi</h3>
-                    <p class="text-slate-600 mb-4">Pemutihan gigi profesional untuk senyum yang lebih cerah dan percaya
-                        diri.</p>
-                    <a href="{{ url('/services/S005') }}"
-                        class="inline-flex items-center text-amber-600 font-semibold group-hover:text-amber-700">
-                        Pelajari Lebih
-                        <i data-lucide="arrow-right"
-                            class="w-4 h-4 ml-2 group-hover:translate-x-1 transition-transform"></i>
-                    </a>
-                </div>
+                    <div class="p-6">
+                        <h3 class="text-xl font-bold text-slate-800 mb-3 group-hover:text-amber-600 transition-colors">
+                            Bleaching Gigi</h3>
+                        <p class="text-slate-600 mb-4">Pemutihan gigi profesional untuk senyum yang lebih cerah dan percaya
+                            diri.</p>
+                        <span class="inline-flex items-center text-amber-600 font-semibold group-hover:text-amber-700">
+                            Pelajari Lebih
+                            <i data-lucide="arrow-right"
+                                class="w-4 h-4 ml-2 group-hover:translate-x-1 transition-transform"></i>
+                        </span>
+                    </div>
+                </a>
 
-                {{-- Service 4 --}}
-                <div
-                    class="group p-8 bg-gradient-to-br from-slate-50 to-white rounded-3xl border border-slate-100 hover:border-purple-200 hover:shadow-xl hover:shadow-purple-500/10 transition-all duration-300">
-                    <div
-                        class="w-16 h-16 bg-gradient-to-br from-purple-500 to-purple-600 rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform shadow-lg shadow-purple-500/30">
-                        <i data-lucide="git-branch" class="w-8 h-8 text-white"></i>
+                {{-- Service 4: Kawat Gigi --}}
+                <a href="{{ url('/services/S007') }}"
+                    class="group block bg-white rounded-3xl border border-slate-100 hover:border-purple-200 hover:shadow-xl hover:shadow-purple-500/10 transition-all duration-300 overflow-hidden cursor-pointer">
+                    <div class="h-48 overflow-hidden">
+                        <img src="{{ asset('images/services/kawat_gigi.png') }}" alt="Kawat Gigi"
+                            class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500">
                     </div>
-                    <h3 class="text-xl font-bold text-slate-800 mb-3">Kawat Gigi / Braces</h3>
-                    <p class="text-slate-600 mb-4">Pemasangan kawat gigi untuk merapikan susunan gigi dengan hasil maksimal.
-                    </p>
-                    <a href="{{ url('/services/S007') }}"
-                        class="inline-flex items-center text-purple-600 font-semibold group-hover:text-purple-700">
-                        Pelajari Lebih
-                        <i data-lucide="arrow-right"
-                            class="w-4 h-4 ml-2 group-hover:translate-x-1 transition-transform"></i>
-                    </a>
-                </div>
+                    <div class="p-6">
+                        <h3 class="text-xl font-bold text-slate-800 mb-3 group-hover:text-purple-600 transition-colors">
+                            Kawat Gigi / Braces</h3>
+                        <p class="text-slate-600 mb-4">Pemasangan kawat gigi untuk merapikan susunan gigi dengan hasil
+                            maksimal.</p>
+                        <span class="inline-flex items-center text-purple-600 font-semibold group-hover:text-purple-700">
+                            Pelajari Lebih
+                            <i data-lucide="arrow-right"
+                                class="w-4 h-4 ml-2 group-hover:translate-x-1 transition-transform"></i>
+                        </span>
+                    </div>
+                </a>
 
-                {{-- Service 5 --}}
-                <div
-                    class="group p-8 bg-gradient-to-br from-slate-50 to-white rounded-3xl border border-slate-100 hover:border-rose-200 hover:shadow-xl hover:shadow-rose-500/10 transition-all duration-300">
-                    <div
-                        class="w-16 h-16 bg-gradient-to-br from-rose-500 to-rose-600 rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform shadow-lg shadow-rose-500/30">
-                        <i data-lucide="heart-pulse" class="w-8 h-8 text-white"></i>
+                {{-- Service 5: Perawatan Saluran Akar --}}
+                <a href="{{ url('/services/S009') }}"
+                    class="group block bg-white rounded-3xl border border-slate-100 hover:border-rose-200 hover:shadow-xl hover:shadow-rose-500/10 transition-all duration-300 overflow-hidden cursor-pointer">
+                    <div class="h-48 overflow-hidden">
+                        <img src="{{ asset('images/services/saluran_akar.png') }}" alt="Perawatan Saluran Akar"
+                            class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500">
                     </div>
-                    <h3 class="text-xl font-bold text-slate-800 mb-3">Perawatan Saluran Akar</h3>
-                    <p class="text-slate-600 mb-4">Perawatan saluran akar untuk menyelamatkan gigi yang terinfeksi.</p>
-                    <a href="{{ url('/services/S009') }}"
-                        class="inline-flex items-center text-rose-600 font-semibold group-hover:text-rose-700">
-                        Pelajari Lebih
-                        <i data-lucide="arrow-right"
-                            class="w-4 h-4 ml-2 group-hover:translate-x-1 transition-transform"></i>
-                    </a>
-                </div>
+                    <div class="p-6">
+                        <h3 class="text-xl font-bold text-slate-800 mb-3 group-hover:text-rose-600 transition-colors">
+                            Perawatan Saluran Akar</h3>
+                        <p class="text-slate-600 mb-4">Perawatan saluran akar untuk menyelamatkan gigi yang terinfeksi.</p>
+                        <span class="inline-flex items-center text-rose-600 font-semibold group-hover:text-rose-700">
+                            Pelajari Lebih
+                            <i data-lucide="arrow-right"
+                                class="w-4 h-4 ml-2 group-hover:translate-x-1 transition-transform"></i>
+                        </span>
+                    </div>
+                </a>
 
-                {{-- Service 6 --}}
-                <div
-                    class="group p-8 bg-gradient-to-br from-slate-50 to-white rounded-3xl border border-slate-100 hover:border-indigo-200 hover:shadow-xl hover:shadow-indigo-500/10 transition-all duration-300">
-                    <div
-                        class="w-16 h-16 bg-gradient-to-br from-indigo-500 to-indigo-600 rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform shadow-lg shadow-indigo-500/30">
-                        <i data-lucide="shield-check" class="w-8 h-8 text-white"></i>
+                {{-- Service 6: Implan Gigi --}}
+                <a href="{{ url('/services/S010') }}"
+                    class="group block bg-white rounded-3xl border border-slate-100 hover:border-indigo-200 hover:shadow-xl hover:shadow-indigo-500/10 transition-all duration-300 overflow-hidden cursor-pointer">
+                    <div class="h-48 overflow-hidden">
+                        <img src="{{ asset('images/services/implan_gigi.png') }}" alt="Implan Gigi"
+                            class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500">
                     </div>
-                    <h3 class="text-xl font-bold text-slate-800 mb-3">Implan Gigi</h3>
-                    <p class="text-slate-600 mb-4">Pemasangan implan gigi berkualitas tinggi untuk mengganti gigi yang
-                        hilang.</p>
-                    <a href="{{ url('/services/S010') }}"
-                        class="inline-flex items-center text-indigo-600 font-semibold group-hover:text-indigo-700">
-                        Pelajari Lebih
-                        <i data-lucide="arrow-right"
-                            class="w-4 h-4 ml-2 group-hover:translate-x-1 transition-transform"></i>
-                    </a>
-                </div>
+                    <div class="p-6">
+                        <h3 class="text-xl font-bold text-slate-800 mb-3 group-hover:text-indigo-600 transition-colors">
+                            Implan Gigi</h3>
+                        <p class="text-slate-600 mb-4">Pemasangan implan gigi berkualitas tinggi untuk mengganti gigi yang
+                            hilang.</p>
+                        <span class="inline-flex items-center text-indigo-600 font-semibold group-hover:text-indigo-700">
+                            Pelajari Lebih
+                            <i data-lucide="arrow-right"
+                                class="w-4 h-4 ml-2 group-hover:translate-x-1 transition-transform"></i>
+                        </span>
+                    </div>
+                </a>
             </div>
         </div>
     </section>
